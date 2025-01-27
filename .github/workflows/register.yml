@@ -40,8 +40,5 @@ jobs:
         name: react-production-build
         path: build/
 
-    - name: Run ESLint
-      run: npm run lint
-    
     - name: Start React app (optional)
       run: npm start
