@@ -42,10 +42,13 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         
+        - name: Authenticate with GitHub using token
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
     # Step 6: Deploy to GitHub Pages
     - name: Deploy with gh-pages
       run: |
-         git remote set-url origin https://git:${{ secrets.MY_GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+         git remote set-url origin https://git:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
          npm run deploy
       env:
-       MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+       GH_TOKEN: ${{ secrets.GH_TOKEN }}
