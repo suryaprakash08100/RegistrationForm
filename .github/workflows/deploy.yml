@@ -1,0 +1,56 @@
+name: Node.js CI and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # Step 2: Setup Node.js environment
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: npm ci
+
+    # Step 4: Build the project
+    - name: Build Project
+      run: npm run build
+
+    # Step 5: Run tests
+    - name: Run Tests
+      run: npm test
+
+    # Step 6: Set up Git identity
+    - name: Set up Git identity
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    # Step 7: Authenticate with GitHub using token
+    - name: Authenticate with GitHub using token
+      run: |
+        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+
+    # Step 8: Deploy to GitHub Pages
+    - name: Deploy with gh-pages
+      run: |
+        npm run deploy
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
