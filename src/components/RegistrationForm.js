@@ -28,12 +28,18 @@ export default function RegistrationForm(props) {
     } else {
       alert("Registration completed successfully!");
       console.log(props.data);
+      form.reset(); // Optionally reset the form after successful submission.
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    matchPassword();
+  };
+
   return (
-    <form id="myForm" className="container">
-      <p>
+    <form id="myForm" className="container" onSubmit={handleSubmit}>
+      <div>
         <b>Firstname:</b>
         <input
           type="text"
@@ -42,8 +48,8 @@ export default function RegistrationForm(props) {
           onChange={props.handleInputChange}
           required
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Middlename:</b>
         <input
           type="text"
@@ -51,8 +57,8 @@ export default function RegistrationForm(props) {
           placeholder="Your middle name"
           onChange={props.handleInputChange}
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Lastname:</b>
         <input
           type="text"
@@ -61,8 +67,8 @@ export default function RegistrationForm(props) {
           onChange={props.handleInputChange}
           required
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Course:</b>
         <select name="course" onChange={props.handleInputChange} required>
           <option value="">Choose a course</option>
@@ -70,8 +76,8 @@ export default function RegistrationForm(props) {
           <option value="english">English</option>
           <option value="maths">Maths</option>
         </select>
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Gender:</b>
         <div onChange={props.handleInputChange}>
           <label>
@@ -84,8 +90,8 @@ export default function RegistrationForm(props) {
             <input type="radio" name="gender" value="other" required /> Other
           </label>
         </div>
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Phone:</b>
         <input
           type="text"
@@ -93,8 +99,8 @@ export default function RegistrationForm(props) {
           maxLength={10}
           onChange={props.handleInputChange}
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Address:</b>
         <textarea
           name="address"
@@ -103,8 +109,8 @@ export default function RegistrationForm(props) {
           placeholder="Your address"
           onChange={props.handleInputChange}
         ></textarea>
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Email:</b>
         <input
           type="email"
@@ -113,8 +119,8 @@ export default function RegistrationForm(props) {
           onChange={props.handleInputChange}
           required
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Password:</b>
         <input
           type="password"
@@ -125,8 +131,8 @@ export default function RegistrationForm(props) {
           onChange={props.handleInputChange}
           required
         />
-      </p>
-      <p>
+      </div>
+      <div>
         <b>Confirm Password:</b>
         <input
           type="password"
@@ -136,11 +142,9 @@ export default function RegistrationForm(props) {
           placeholder="Re-enter password"
           required
         />
-      </p>
+      </div>
       <div className="form-actions">
-        <button type="button" onClick={matchPassword}>
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );
