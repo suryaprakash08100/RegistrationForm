@@ -38,8 +38,9 @@ jobs:
       run: npm test
 
     # Step 6: Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy with gh-pages
       run: |
-        npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
+       git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+       npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+      env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
