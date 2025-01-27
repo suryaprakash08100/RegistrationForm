@@ -36,19 +36,21 @@ jobs:
     # Step 5: Run tests
     - name: Run Tests
       run: npm test
-      
+
+    # Step 6: Set up Git identity
     - name: Set up Git identity
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        
-        - name: Authenticate with GitHub using token
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-    # Step 6: Deploy to GitHub Pages
+
+    # Step 7: Authenticate with GitHub using token
+    - name: Authenticate with GitHub using token
+      run: |
+        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+
+    # Step 8: Deploy to GitHub Pages
     - name: Deploy with gh-pages
       run: |
-         git remote set-url origin https://git:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-         npm run deploy
+        npm run deploy
       env:
-       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
