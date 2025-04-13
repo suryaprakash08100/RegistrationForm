@@ -143,6 +143,15 @@ export default function RegistrationForm(props) {
           required
         />
       </div>
+      <div>
+        <b>Date of Birth:</b>
+        <input
+          type="date"
+          name="dob"
+          onChange={props.handleInputChange}
+          required
+        />
+      </div>
       <div className="form-actions">
         <button type="submit">Submit</button>
       </div>
