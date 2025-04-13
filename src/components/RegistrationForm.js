@@ -152,6 +152,15 @@ export default function RegistrationForm(props) {
           required
         />
       </div>
+      <div>
+    <b>Profile Picture:</b>
+    <input
+      type="file"
+      name="profilePicture"
+      accept="image/*"
+      onChange={props.handleInputChange}
+    />
+  </div>
       <div className="form-actions">
         <button type="submit">Submit</button>
       </div>
